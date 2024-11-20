@@ -1,54 +1,125 @@
-// Admin login handler
-document.getElementById('adminLoginForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const multer = require('multer');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const cors = require('cors');
+const path = require('path');
 
-  if (username === "superadmin" && password === "123456") {
-    document.getElementById('loginMessage').textContent = "Logged in successfully!";
-    document.getElementById('reportListSection').style.display = "block";
-    showReports();
-  } else {
-    document.getElementById('loginMessage').textContent = "Invalid login credentials!";
+// Initialize app
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// MongoDB Connection
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log('Connected to MongoDB Atlas'))
+  .catch((error) => {
+    console.error('MongoDB connection error:', error);
+    process.exit(1); // Exit process if MongoDB connection fails
+  });
+
+// Schemas
+const reportSchema = new mongoose.Schema({
+  reporterName: String,
+  category: String,
+  description: String,
+  location: String,
+  date: String,
+  time: String,
+  image: String,
+  video: String,
+});
+
+const adminSchema = new mongoose.Schema({
+  username: String,
+  password: String,
+});
+
+const Report = mongoose.model('Report', reportSchema);
+const Admin = mongoose.model('Admin', adminSchema);
+
+// Setup multer for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, 'uploads/'),
+  filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`),
+});
+
+const upload = multer({ storage });
+
+// Seed admin account (for testing)
+(async () => {
+  const adminExists = await Admin.findOne({ username: 'admin' });
+  if (!adminExists) {
+    const hashedPassword = await bcrypt.hash('password', 10);
+    await Admin.create({ username: 'admin', password: hashedPassword });
+    console.log('Admin account created: username="admin", password="password"');
+  }
+})();
+
+// Routes
+// 1. Default route (required for Render to detect the app)
+app.get('/', (req, res) => {
+  res.send('Server is running!');
+});
+
+// 2. Submit a crime report
+app.post('/submit-report', upload.fields([{ name: 'image' }, { name: 'video' }]), async (req, res) => {
+  try {
+    const report = new Report({
+      reporterName: req.body.reporterName,
+      category: req.body.crimeCategory,
+      description: req.body.crimeDescription,
+      location: req.body.location,
+      date: req.body.date,
+      time: req.body.time,
+      image: req.files?.image?.[0]?.filename || null,
+      video: req.files?.video?.[0]?.filename || null,
+    });
+
+    await report.save();
+    res.status(201).json({ message: 'Report submitted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error submitting report', error });
   }
 });
 
-// Function to display reports
-function showReports() {
-  const crimeReports = JSON.parse(localStorage.getItem('crimeReports')) || [];
-  const reportList = document.getElementById('reportList');
-  reportList.innerHTML = '';
-
-  crimeReports.forEach((report, index) => {
-    const listItem = document.createElement('li');
-    listItem.innerHTML = `
-      <strong>Report #${index + 1}</strong><br>
-      <strong>Reporter Name:</strong> ${report.reporterName}<br>
-      <strong>Category:</strong> ${report.category}<br>
-      <strong>Description:</strong> ${report.description}<br>
-      <strong>Location:</strong> ${report.location}<br>
-      <strong>Date:</strong> ${report.date}<br>
-      <strong>Time:</strong> ${report.time}<br>
-    `;
-
-    // Display image if available
-    if (report.image) {
-      const img = document.createElement('img');
-      img.src = report.image;
-      img.alt = "Uploaded crime image";
-      img.style.width = "200px"; // Adjust size as needed
-      listItem.appendChild(img);
+// 3. Admin login
+app.post('/admin-login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const admin = await Admin.findOne({ username });
+    if (admin && (await bcrypt.compare(password, admin.password))) {
+      const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      res.json({ token, message: 'Login successful' });
+    } else {
+      res.status(401).json({ message: 'Invalid credentials' });
     }
+  } catch (error) {
+    res.status(500).json({ message: 'Error logging in', error });
+  }
+});
 
-    // Display video if available
-    if (report.video) {
-      const video = document.createElement('video');
-      video.src = report.video;
-      video.controls = true;
-      video.style.width = "300px"; // Adjust size as needed
-      listItem.appendChild(video);
-    }
+// 4. Fetch all reports (protected route)
+app.get('/get-reports', async (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) return res.status(401).json({ message: 'Unauthorized' });
 
-    reportList.appendChild(listItem);
-  });
-}
+  try {
+    jwt.verify(token, process.env.JWT_SECRET);
+    const reports = await Report.find();
+    res.json(reports);
+  } catch (error) {
+    res.status(401).json({ message: 'Invalid token', error });
+  }
+});
+
+// Start server
+const PORT = process.env.PORT || 5000; // Use Render's PORT or default to 5000
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
