@@ -13,6 +13,11 @@ app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Health Check Route (Required for Deployment Platforms)
+app.get('/', (req, res) => {
+  res.send('Server is running!');
+});
+
 // MongoDB Connection
 mongoose
   .connect(process.env.MONGO_URI, {
@@ -52,11 +57,15 @@ const upload = multer({ storage });
 
 // Seed admin account (for testing)
 (async () => {
-  const adminExists = await Admin.findOne({ username: 'admin' });
-  if (!adminExists) {
-    const hashedPassword = await bcrypt.hash('password', 10);
-    await Admin.create({ username: 'admin', password: hashedPassword });
-    console.log('Admin account created: username="admin", password="password"');
+  try {
+    const adminExists = await Admin.findOne({ username: 'admin' });
+    if (!adminExists) {
+      const hashedPassword = await bcrypt.hash('password', 10);
+      await Admin.create({ username: 'admin', password: hashedPassword });
+      console.log('Admin account created: username="admin", password="password"');
+    }
+  } catch (error) {
+    console.error('Error seeding admin account:', error);
   }
 })();
 
