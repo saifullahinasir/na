@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report a Crime</title>
+</head>
+<body>
+  <h1>Report a Crime</h1>
+  <form id="crimeForm">
+    <label for="reporterName">Your Name:</label>
+    <input type="text" id="reporterName" name="reporterName" required>
+
+    <label for="crimeCategory">Category:</label>
+    <select id="crimeCategory" name="crimeCategory" required>
+      <option value="theft">Theft</option>
+      <option value="assault">Assault</option>
+      <option value="vandalism">Vandalism</option>
+      <option value="kidnapping">Kidnapping</option>
+      <option value="banditry">Banditry</option>
+      <option value="terrorism">Terrorism</option>
+      <option value="robbery">Robbery</option>
+      <option value="murder">Murder</option>
+      <option value="human trafficking">Human Trafficking</option>
+      <option value="drug trafficking">Drug Trafficking</option>
+      <option value="other">Other</option>
+    </select>
+
+    <label for="crimeDescription">Crime Description:</label>
+    <textarea id="crimeDescription" name="crimeDescription" required></textarea>
+
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" required>
+
+    <label for="date">Date of Crime:</label>
+    <input type="date" id="date" name="date" required>
+
+    <label for="time">Time of Crime:</label>
+    <input type="time" id="time" name="time" required>
+
+    <label for="crimeImage">Upload Image (optional):</label>
+    <input type="file" id="crimeImage" name="crimeImage" accept="image/*">
+
+    <label for="crimeVideo">Upload Video (optional):</label>
+    <input type="file" id="crimeVideo" name="crimeVideo" accept="video/*">
+
+    <button type="submit">Submit Report</button>
+  </form>
+
+  <footer>
+    <p>&copy; 2024 Crime Reporting System</p>
+  </footer>
+
+  <script>
+    document.getElementById('crimeForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData();
+      formData.append('reporterName', document.getElementById('reporterName').value);
+      formData.append('crimeCategory', document.getElementById('crimeCategory').value);
+      formData.append('crimeDescription', document.getElementById('crimeDescription').value);
+      formData.append('location', document.getElementById('location').value);
+      formData.append('date', document.getElementById('date').value);
+      formData.append('time', document.getElementById('time').value);
+
+      const crimeImage = document.getElementById('crimeImage').files[0];
+      if (crimeImage) formData.append('image', crimeImage);
+
+      const crimeVideo = document.getElementById('crimeVideo').files[0];
+      if (crimeVideo) formData.append('video', crimeVideo);
+
+      try {
+        const response = await fetch('http://localhost:5000/submit-report', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const result = await response.json();
+        alert(result.message);
+      } catch (error) {
+        alert('Error submitting report: ' + error.message);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 0;
+  width: 100%;
+  text-align: center;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.upload-section, .materials-section {
+  margin: 20px 0;
+}
+
+button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+li a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+li a:hover {
+  text-decoration: underline;
+}
+table  {
+   border-collapse: collapse;
+   width: 20%;
+   max-width: 1200px;
+ }
+ th, td {
+   border: 1px solid #333;
+   padding: 5px;
+   text-align: center;
+   font-size: 5px;
+ }
+ th {
+   background-color: #333;
+   color: white;
+   font-weight: bold;
+ }
+ td:first-child, th:first-child {
+   background-color: #8B4513;
+   color: white;
+ }
+ caption {
+   font-size: 5px;
+   font-weight: bold;
+   margin-bottom: 5px;
+ }
+ .h{
+   font-size: 15px;
+ }

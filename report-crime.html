@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Report a Crime</title>
+</head>
+<body>
+  <h1>Report a Crime</h1>
+  <form id="crimeForm">
+    <label>Your Name:</label>
+    <input type="text" name="reporterName" required>
+    
+    <label>Category:</label>
+    <select name="category" required>
+      <option value="theft">Theft</option>
+      <option value="assault">Assault</option>
+      <option value="vandalism">Vandalism</option>
+      <option value="kidnapping">Kidnapping</option>
+      <option value="banditry">Banditry</option>
+      <option value="terrorism">Terrorism</option>
+      <option value="robbery">Robbery</option>
+      <option value="murder">Murder</option>
+      <option value="human-trafficking">Human Trafficking</option>
+      <option value="drug-trafficking">Drug Trafficking</option>
+      <option value="other">Other</option>
+    </select>
+    
+    <label>Crime Description:</label>
+    <textarea name="description" required></textarea>
+    
+    <label>Location:</label>
+    <input type="text" name="location" required>
+    
+    <label>Date:</label>
+    <input type="date" name="date" required>
+    
+    <label>Time:</label>
+    <input type="time" name="time" required>
+    
+    <label>Upload Image:</label>
+    <input type="file" name="image" accept="image/*">
+    
+    <label>Upload Video:</label>
+    <input type="file" name="video" accept="video/*">
+    
+    <!-- Buttons: Submit and View Reports -->
+    <div style="display: flex; justify-content: space-between; margin-top: 1em;">
+      <button type="submit">Submit Report</button>
+      <button type="button" id="viewReportsButton">View Reports</button>
+    </div>
+  </form>
+
+  <script>
+    // Handle "Submit Report" functionality
+    document.getElementById('crimeForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+
+      try {
+        const response = await fetch('http://localhost:5000/report-crime', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const result = await response.json();
+        alert(result.message);
+        e.target.reset(); // Reset the form after successful submission
+      } catch (error) {
+        alert('Error submitting the report: ' + error.message);
+      }
+    });
+
+    // Redirect to admin view page
+    document.getElementById('viewReportsButton').addEventListener('click', () => {
+      window.location.href = 'admin.html';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Crime Dashboard</title>
+</head>
+<body>
+  <div class="watermark"></div> <!-- Watermark image -->
+  <nav class="navbar">
+    <div class="logo">NIGERIA POLICE FORCE</span></div>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <ul class="nav-links">
+      <li><a href="Index.html">Home</a></li>
+      <li><a href="crime2.html">Report a Crime</a></li>
+       <li><a href="inde.html">Zamfara State security Report</a></li>
+      <li><a href="crime3.html">Crime Dashboard</a></li>
+      <li><a href="crime faqs.html">FAQs</a></li>
+      <li><a href="crime4.html">About Us</a></li>
+      <li><a href="crime6.html">Terms and Conditions</a></li>
+      <li><a href="Privay.html">Privacy Policy</a></li>
+    </ul>
+  </nav>
+    <main>
+        <h1>Crime Dashboard</h1>
+        <div id="map">
+            <!-- Placeholder for an interactive map -->
+            <p>Map displaying reported crimes will be here.</p>
+        </div>
+        
+        <div class="filters">
+            <label for="crimeType">Filter by Crime Type:</label>
+            <select id="crimeType">
+            <option value="theft">Theft</option>
+            <option value="assault">Assault</option>
+            <option value="vandalism">Vandalism</option>
+            <option value="kidnapping">kidnapping</option>
+            <option value="Banditry">Banditry</option>
+            <option value="Terrorism">Terrorism</option>
+            <option value="Robbery">Robbery</option>
+            <option value="Murder">Murder</option>
+            <option value="Human Trafficking">Human Trafficking</option>
+            <option value="Drugs Trafficking">Drugs Trafficking</option>
+            <option value="other">Other</option>
+            </select>
+
+            <label for="dateRange">Date Range:</label>
+            <input type="date" id="startDate">
+            <input type="date" id="endDate">
+            <button>Filter</button>
+        </div>
+        
+        <div id="statistics">
+            <h2>Statistics</h2>
+            <p>Total Crimes Reported: <strong>150</strong></p>
+            <p>Resolved Crimes: <strong>120</strong></p>
+        </div>
+    </main>
+    
+   
+    <script src="scripts.js"></script>
+    <footer>
+        <p>&copy; 2024 Crime Reporting System</p>
+    </footer>
+</body>
+</html>

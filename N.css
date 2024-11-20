@@ -1,0 +1,116 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: maroon;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: white;
+  border-bottom: 2px solid #4CAF50;
+}
+
+.logo {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+.logo span {
+  color: black;
+}
+
+.menu-toggle {
+  font-size: 1.5em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none;
+}
+
+.nav-links {
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: black;
+  padding: 10px 15px;
+}
+
+.nav-links li a.contact {
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+}
+
+.nav-links li a.reach-out {
+  background-color: green;
+  color: white;
+  border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    background-color: white;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    border-top: 1px solid #ccc;
+  }
+
+  .nav-links li {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+
+#intro{
+    background-image: url('hero-background.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 70px 20px;
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+#statistics{
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+}
+#search{
+  margin: 20px 0;
+}
+.search input {
+    padding: 10px;
+    width: 100%;
+}
+footer {
+    background: rgb(73, 13, 13);
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: -10px;
+    width: 100%;
+    display: block;

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - View Reports</title>
+</head>
+<body>
+  <h1>Admin - View Reports</h1>
+  <form id="adminLoginForm">
+    <label>Username:</label>
+    <input type="text" id="username" required>
+    <label>Password:</label>
+    <input type="password" id="password" required>
+    <button type="submit">Login</button>
+  </form>
+
+  <section id="reportsSection" style="display: none;">
+    <h2>Submitted Crime Reports</h2>
+    <ul id="reportsList"></ul>
+  </section>
+
+  <script>
+    document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const response = await fetch('http://localhost:5000/admin-login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password }),
+        });
+
+        const result = await response.json();
+
+        if (result.token) {
+          alert(result.message);
+          localStorage.setItem('authToken', result.token);
+          fetchReports(result.token);
+        } else {
+          alert(result.message);
+        }
+      } catch (error) {
+        alert('Error logging in: ' + error.message);
+      }
+    });
+
+    async function fetchReports(token) {
+      const response = await fetch('http://localhost:5000/get-reports', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const reports = await response.json();
+      const reportsList = document.getElementById('reportsList');
+      document.getElementById('reportsSection').style.display = 'block';
+
+      reportsList.innerHTML = reports
+        .map((report, index) => `
+          <li>
+            <strong>Report #${index + 1}</strong><br>
+            Name: ${report.reporterName}<br>
+            Category: ${report.category}<br>
+            Description: ${report.description}<br>
+            Location: ${report.location}<br>
+            Date: ${report.date}, Time: ${report.time}<br>
+            ${report.image ? `<img src="http://localhost:5000/${report.image}" alt="Crime Image" width="200">` : ''}
+            ${report.video ? `<video src="http://localhost:5000/${report.video}" controls width="300"></video>` : ''}
+          </li>
+        `)
+        .join('');
+    }
+  </script>
+</body>
+</html>

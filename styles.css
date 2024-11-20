@@ -1,0 +1,399 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: maroon;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  transition: 0.5s;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, o.1);
+  z-index: 1;
+  background: rgb(44, 2, 2);
+  position: relative;
+  filter: drop-shadow(0 0 10px);
+  text-transform: uppercase;
+  -webkit-text-stroke: #460c0c;
+  overflow: hidden;
+  animation: animate 6s linear infinite;
+  text-shadow: opx opx 5px #5c0d0d;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: rgb(53, 1, 1);
+  border-bottom: 2px solid #fdfffd;
+}
+
+.logo {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: RED;
+}
+
+.logo span {
+  color: black;
+}
+
+.menu-toggle {
+  font-size: 1.5em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none;
+  align-content: left;
+}
+
+.nav-links {
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: rgb(255, 253, 253);
+  padding: 10px 15px;
+}
+
+.nav-links li a.contact {
+  background-color: #660606;
+  color: white;
+  border-radius: 5px;
+}
+
+.nav-links li a.reach-out {
+  background-color: rgb(146, 1, 1);
+  color: white;
+  border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 72%;
+    text-align: left;
+    background-color: rgb(59, 4, 4);
+    position: absolute;
+    top: 60px;
+    left: 0;
+    border-top: 1px solid #ccc;
+  }
+
+  .nav-links li {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+
+#intro{
+    background-image: url('hero-background.jpg');
+    background-position: center;
+    padding: 70px 20px;
+    color: white;
+    text-align: center;
+}
+#statistics{
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+}
+#search{
+  margin: 20px 0;
+}
+.search input {
+    padding: 10px;
+    width: 100%;
+}
+footer {
+    background: rgb(73, 13, 13);
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: -100px;
+    width: 100%;
+    display: block;
+  }
+    .faq {
+      margin-bottom: 20px;
+      border: 1px solid rgb(8, 7, 7);
+      border-radius: 5px;
+      padding: 10px;
+  }
+  .question {
+      font-weight: bold;
+    }
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: rgb(146, 6, 6);
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      color: #333;
+  }
+  
+  h2 {
+      color: rgb(255, 255, 255);
+  }
+  
+  p {
+      line-height: 1.6;
+      color: #fff;
+  }
+  h3 {
+    color: #fff;
+}
+
+div {
+    color: #fff;
+} 
+
+label {
+    color: #fff;
+    display: block;
+}
+
+section {
+}
+button {
+  padding: 10px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #460c0c;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover.stars {
+  background-color: #fdfffd;
+}
+
+/* Watermark styling */
+.watermark {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('Nigeria_Police_officer_badge.jpg'); /* Replace with your image */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain; /* Adjust size of the watermark */
+  opacity: 0.8; /* Control transparency of watermark */
+  z-index: -1; /* Send watermark to the back */
+}
+#statusMessage, #loginMessage {
+    text-align: center;
+    font-weight: bold;
+    color: red;
+}
+
+#reportListSection {
+    margin-top: 20px;
+   
+}
+
+#searchField {
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 80%;
+    display: inline-block;
+}
+
+#searchButton {
+    padding: 10px;
+    width: 18%;
+    display: inline-block;
+}
+
+#reportList {
+    list-style-type: none;
+    padding: 0;
+    background-color: maroon;
+}
+
+#reportList li {
+    background-color: maroon;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+input[type="file"] {
+    margin-bottom: 15px;
+}
+.mybox{
+    width: 100px;
+    height: 130px;
+}
+container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+
+
+button:hover {
+    background-color: #ff1e0049;
+    padding: 10px
+}
+input, textarea{
+  width: 410px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid rgb(71, 64, 64);
+  border-radius: 4px;
+}
+ul {
+    color: #fff;
+}
+  
+table  {
+   border-collapse: collapse;
+   width: 40%;
+   max-width: 1200px;
+   background-color: white;
+ }
+ th, td {
+   border: 1px solid #333;
+   padding: 3px;
+   font-size: 10px;
+   
+ }
+ th {
+   background-color: #333;
+   color: white;
+   font-weight: bold;
+ }
+ td:first-child, th:first-child {
+   background-color: white;
+   color: black;
+ }
+ caption {
+   font-size: 5px;
+   font-weight: bold;
+   margin-bottom: 5px;
+ }
+ .h{
+   font-size: 13px;
+   color: white;
+ }
+ tr{
+ color: black;  
+ }
+ h4{
+   font-size: 14px;
+   color: white;
+ }
+ .table{
+   max-width: 600px;
+      margin: 20px auto;
+      padding:2px;
+      background: rgb(146, 6, 6);
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      color: #333;
+ }
+ #startRecordingButton, #stopRecordingButton {
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #460c0c;
+    color: white;
+    cursor: pointer;
+}
+
+#startRecordingButton:hover, #stopRecordingButton:hover {
+    background-color: #ff1e0049;
+}
+#submitReportButton {
+    margin-right: auto;
+}
+
+#viewReportButton {
+    margin-left: auto;
+}
+/* Form styling */
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Responsive form controls */
+form label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="date"],
+form input[type="time"],
+form select,
+form textarea,
+form input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 4px;
+}
+
+form textarea {
+  resize: vertical;
+}
+
+form button {
+  padding: 10px 20px;
+  margin-top: 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+form button:hover {
+
+}
+
+/* Button container for submit and view buttons */
+button[type="submit"],
+button[type="button"] {
+  flex: 1;
+  margin: 5px;
+}
+
+#adminLoginForm {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Responsive media queries */
+@media (min-width: 768px) {
+  form {
+    padding: 30px;
+  
