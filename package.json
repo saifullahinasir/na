@@ -1,7 +1,7 @@
 {
   "name": "saif",
   "version": "1.0.0",
-  "main": "index.js", // Corrected to match your server file name
+  "main": "index.js",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
@@ -14,7 +14,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js" // Updated to match the main file
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
